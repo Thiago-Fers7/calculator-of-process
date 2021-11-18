@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { Form } from './components/Form';
+import { Container, Results } from './styles';
 
 function App() {
+  const [res, setRes] = useState({});
+  const [isRes, isSetRes] = useState(false);
+
+  function handleShowResults(results) {
+    setRes(results);
+    isSetRes(true);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <Container>
+      <header>
+        <h1>Calculadora de Processos</h1>
+        <h3>PCPA/FIFO - MP - MTR - RODÍZIO</h3>
       </header>
-    </div>
+
+      <main>
+        <Form handleShowResults={handleShowResults} />
+
+        {isRes && (
+          <Results>
+            <h3>Resultados</h3>
+
+            <div>
+              <p>
+                <span>PCPA/FIFO = </span>
+                <span><span>{res.pcpa}</span>ms</span>
+              </p>
+
+              <p>
+                <span>MP = </span>
+                <span><span>{res.mp}</span>ms</span>
+              </p>
+
+              <p>
+                <span>MTR = </span>
+                <span><span>{res.mtr}</span>ms</span>
+              </p>
+
+              <p>
+                <span>RODÍZIO = </span>
+                <span><span>{res.rodizio}</span>ms</span>
+              </p>
+            </div>
+          </Results>
+        )}
+      </main>
+    </Container>
   );
 }
 
-export default App;
+export { App };
