@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   form {
+    padding: 2rem 0;
+
     fieldset {
       padding: 1rem;
       border: none;

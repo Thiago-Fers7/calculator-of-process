@@ -13,6 +13,6 @@ export const GlobalStyles = createGlobalStyle`
     height: 100vh;
     width: 100vw;
 
-    padding: 10px;
+    padding: 2rem 10px;
   }
 `;
