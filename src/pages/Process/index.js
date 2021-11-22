@@ -18,20 +18,38 @@ function Process() {
 
   function handleChangeTextArea(e) {
     let { value } = e.target;
-    value = value.replace(/[A-Za-z./;]/, '').replace(/[\n ]/g, ',');
-    setValue(value);
+    value = value.replace(/\n/g, ' ');
+    setValue(value)
   }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    const arrayValue = value.split(',').filter(e => e !== '').map(e => { return +e });
+    let [first, ...rest] = value.split(' ')
+    let arrayValue = first.split('\t')
+    arrayValue = [...arrayValue, ...rest]
+    arrayValue = arrayValue.filter(e => {
+      if (!e) return false
+
+      if (!isNaN(+e)) {
+        return true;
+      }
+
+      return false
+    }).map(e => {
+
+      return +e
+    });
+
+    const valueToSend = arrayValue.some(el => !isNaN(el)) ? arrayValue : [];
+
+    console.log(valueToSend);
 
     const results = {
-      mp: mp([...arrayValue]).replace('.', ','),
-      mtr: mtr([...arrayValue]).replace('.', ','),
-      pcpa: pcpa([...arrayValue]).replace('.', ','),
-      rodizio: rodizio([...arrayValue], clock || 1).replace('.', ','),
+      mp: mp([...valueToSend]).replace('.', ','),
+      mtr: mtr([...valueToSend]).replace('.', ','),
+      pcpa: pcpa([...valueToSend]).replace('.', ','),
+      rodizio: rodizio([...valueToSend], clock || 1).replace('.', ','),
     };
 
     handleShowResults(results);

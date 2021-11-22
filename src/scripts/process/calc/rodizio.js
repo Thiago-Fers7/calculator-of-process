@@ -10,9 +10,7 @@ export function rodizio(cpuValues = [], clock = 1) {
 
   const newArray = [];
 
-  let notLoop = 0;
-
-  while (countNulls < cpuValues.length || countLoops < cpuValues.length || notLoop > cpuValues.length) {
+  while (countNulls < cpuValues.length || countLoops < cpuValues.length) {
     for (let i = 0; i < newCpuValues.length; i++) {
       if (newCpuValues[i].value || newCpuValues[i].value === 0) {
         const elementValue = newCpuValues[i].value;
@@ -37,8 +35,6 @@ export function rodizio(cpuValues = [], clock = 1) {
         countLoops++;
       }
     }
-
-    notLoop++;
   }
 
   newArray.sort((a, b) => a.index > b.index ? 1 : -1);

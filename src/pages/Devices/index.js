@@ -17,24 +17,37 @@ function Devices() {
   const [stopped, setStopped] = useState(1);
 
   function handleChangeTextArea(e) {
-    let { value } = e.target;
-    value = value.replace(/[A-Za-z./;]/, '').replace(/^[\n ]/g, ',');
-    setValue(value)
+    let text = e.target.value;
+    text = text.replace(/\n/g, ' ');
+    setValue(text)
   }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    const arrayValue = value.split(',').filter(e => e !== '').map(e => { return +e });
+    let [first, ...rest] = value.split(' ')
+    let arrayValue = first.split('\t')
+    arrayValue = [...arrayValue, ...rest]
+    arrayValue = arrayValue.filter(e => {
+      if (!e) return false
+
+      if (!isNaN(+e)) {
+        return true;
+      }
+      return false
+    }).map(e => {
+
+      return +e
+    });
+
+    const valueToSend = arrayValue.some(el => !isNaN(el)) ? arrayValue : [];
 
     const results = {
-      cscan: cscan(stopped, [...arrayValue]).replace('.', ','),
-      fifo: fifo(stopped, [...arrayValue]).replace('.', ','),
-      mtb: mtb(stopped, [...arrayValue]).replace('.', ','),
-      scan: scan(stopped || 0, [...arrayValue]).replace('.', ','),
+      cscan: cscan(stopped, [...valueToSend]).replace('.', ','),
+      fifo: fifo(stopped, [...valueToSend]).replace('.', ','),
+      mtb: mtb(stopped, [...valueToSend]).replace('.', ','),
+      scan: scan(stopped || 0, [...valueToSend]).replace('.', ','),
     };
-
-    console.log(arrayValue);
 
     handleShowResults(results);
   }
