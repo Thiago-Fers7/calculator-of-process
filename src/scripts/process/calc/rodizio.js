@@ -49,5 +49,3 @@ export function rodizio(cpuValues = [], clock = 1) {
 
   return result.toFixed(2);
 }
-
-// console.log(rodizio([4, 8, 9]))
