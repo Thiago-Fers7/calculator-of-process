@@ -16,7 +16,7 @@ export function Home() {
                 <li>FIFO</li>
                 <li>MP</li>
                 <li>MTR</li>
-                <li>RIDÍZIO</li>
+                <li>RODÍZIO</li>
               </ul>
             </span>
           </Link>
