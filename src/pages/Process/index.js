@@ -18,14 +18,14 @@ function Process() {
 
   function handleChangeTextArea(e) {
     let { value } = e.target;
-    value = value.replace(/\n/g, ' ');
-    setValue(value)
+    value = value.replace(/[A-Za-z./;]/, '').replace(/[\n ]/g, ',');
+    setValue(value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    const arrayValue = value.split(' ').filter(e => e !== '').map(e => { return +e });
+    const arrayValue = value.split(',').filter(e => e !== '').map(e => { return +e });
 
     const results = {
       mp: mp([...arrayValue]).replace('.', ','),
@@ -33,7 +33,7 @@ function Process() {
       pcpa: pcpa([...arrayValue]).replace('.', ','),
       rodizio: rodizio([...arrayValue], clock || 1).replace('.', ','),
     };
-    
+
     handleShowResults(results);
   }
 

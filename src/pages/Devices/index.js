@@ -18,14 +18,14 @@ function Devices() {
 
   function handleChangeTextArea(e) {
     let { value } = e.target;
-    value = value.replace(/\n/g, ' ');
+    value = value.replace(/[A-Za-z./;]/, '').replace(/^[\n ]/g, ',');
     setValue(value)
   }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    const arrayValue = value.split(' ').filter(e => e !== '').map(e => { return +e });
+    const arrayValue = value.split(',').filter(e => e !== '').map(e => { return +e });
 
     const results = {
       cscan: cscan(stopped, [...arrayValue]).replace('.', ','),
